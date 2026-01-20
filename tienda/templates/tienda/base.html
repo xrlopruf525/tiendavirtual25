@@ -7,51 +7,60 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="https://picsum.photos/200/100" alt="Logo" class="me-2"> Tienda de 2DAW
-            </a>
+            <a class="navbar-brand" href="{% url 'compra_listado' %}">Tienda de 2DAW</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" href="{% url 'compra_listado' %}" role="button" data-bs-toggle="dropdown">
-                            <img src="https://picsum.photos/50/50" class="rounded-circle" alt="User"> {{user.username}}
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
+                            <img src="https://picsum.photos/50/50" class="rounded-circle me-1" alt="User"> {{ user.username }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="{% url 'perfil' %}">Perfil</a></li>
                             {% if user.is_staff %}
-                            <li><a href="{% url 'informes' %}"class="dropdown-item" >Informes</a> </li>       
-                            {%endif%}
+                            <li><a class="dropdown-item" href="{% url 'informes' %}">Informes</a></li>
+                            {% endif %}
                             <li><hr class="dropdown-divider"></li>
-                            <li><form action="{% url 'logout' %}" method="post">
-                                {% csrf_token %} 
-                                <button type="submit" class="dropdown-item">Cerrar Sesión</button>
-                              </form>
+                            <li>
+                                <form action="{% url 'logout' %}" method="post">
+                                    {% csrf_token %} 
+                                    <button type="submit" class="dropdown-item">Cerrar Sesión</button>
+                                </form>
                             </li>       
-
                         </ul>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+
     <!-- Messages -->
     {% if messages %}
-    {% for message in messages %}
-    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    <div class="container mt-3 mb-4">
+        <div class="d-flex justify-content-end">
+            <a href="{% url 'compra_listado' %}" class="btn btn-success">Ir a la Tienda / Comprar</a>
+        </div>
+    </div>
     {% endif %}
 
     <!-- Content -->
-    {% block contenido %}
-
-    {% endblock %}
-    
+    <div class="container">
+        {% block contenido %}
+        {% endblock %}
+    </div>
 
     <!-- Footer -->
     <footer class="bg-dark text-white text-center py-3 mt-4">
@@ -60,5 +69,3 @@
 
 </body>
 {% endblock %}
-
-

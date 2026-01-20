@@ -1,26 +1,28 @@
 {% extends 'tienda/base.html' %}
 
 {% block contenido %}
-    {{object.nombre}}
-
-    <p>Detalles</p>
+<div class="container mt-4">
+    <h2>{{ object.nombre }}</h2>
 
     {% if object.foto %}
-        <img src="{{ object.foto.url }}" alt="{{ object.nombre }}" width="300px">
-    {% else %}
-        <p>Este producto no tiene imagen</p>
+    <img src="{{ object.foto.url }}" alt="{{ object.nombre }}" class="mb-3" style="width:300px; height:auto;">
     {% endif %}
 
-    
-    <p>-----------------------------------------------</p>
-    Marca: {{object.marca}}<br>
-    Modelo: {{object.modelo}}<br>
-    Precio: {{object.precio}}<br>
-    ¿VIP? {{object.vip}}<br>
-    {{object.foto}}<br>
-    Unidades: {{object.unidades}}<br>
-    <p>----------------------------------------------</p>
+    <p>
+        Marca: {{ object.marca }}<br>
+        Modelo: {{ object.modelo }}<br>
+        Precio: €{{ object.precio }}<br>
+        Stock: {{ object.unidades }}<br>
+        {% if object.vip %}<span class="badge bg-warning">VIP</span>{% endif %}
+    </p>
 
-    <a href="{% url 'producto_editar' pk=object.pk %}">Editar</a>
-    <a href="{% url 'producto_borrar' pk=object.pk %}">Borrar</a>
+    <a href="{% url 'producto_editar' object.pk %}" class="btn btn-warning">Editar</a>
+    <a href="{% url 'producto_borrar' object.pk %}" class="btn btn-danger">Borrar</a>
+
+    {% if user.is_authenticated %}
+    <a href="{% url 'checkout' object.pk %}?unidades=1" class="btn btn-success">Comprar</a>
+    {% else %}
+    <p class="text-muted">Inicia sesión para comprar</p>
+    {% endif %}
+</div>
 {% endblock %}

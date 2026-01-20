@@ -1,15 +1,20 @@
 {% extends 'tienda/base.html' %}
 
 {% block contenido %}
+<div class="container mt-4">
+    <h2>Editar Producto: {{ object.nombre }}</h2>
 
-<form action="" method="post" enctype="multipart/form-data">
+    {% if object.foto %}
+    <img src="{{ object.foto.url }}" alt="{{ object.nombre }}" class="mb-3" style="width:300px; height:auto;">
+    {% else %}
+    <p>Este producto no tiene imagen</p>
+    {% endif %}
 
-    {% csrf_token %}
-
-    {{form.as_p}}
-    
-    <input type="submit"/>
-
-</form>
-
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success mt-2">Guardar Cambios</button>
+        <a href="{% url 'listado' %}" class="btn btn-secondary mt-2">Cancelar</a>
+    </form>
+</div>
 {% endblock %}

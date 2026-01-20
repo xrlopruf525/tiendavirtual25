@@ -1,16 +1,14 @@
 {% extends 'tienda/base.html' %}
 
 {% block contenido %}
+<div class="container mt-4">
+    <h2>Borrar Producto: {{ object.nombre }} </h2>
+    <p>¿Estás seguro que quieres borrar este producto?</p>
 
-<form action="" method="post">
-
-    {% csrf_token %}
-
-    {{form.as_p}}
-    <p>¿Estas seguro que quieres borrar el producto {{object}}?</p>
-
-    <input type="submit" value="borrar"/>
-
-</form>
-
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Borrar</button>
+        <a href="{% url 'listado' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
 {% endblock %}

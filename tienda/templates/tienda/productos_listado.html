@@ -1,14 +1,34 @@
 {% extends 'tienda/base.html' %}
 
 {% block contenido %}
-    <ul>
-        {% for producto in object_list %}
-            <li>
-                <a href=  "{% url 'producto_detalle' producto.pk %}" >{{producto}}</a>
+<div class="container mt-4">
+    <h2>Listado de Productos</h2>
 
-            </li>
+    <div class="row mt-3">
+        {% for producto in object_list %}
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                {% if producto.foto %}
+                <img src="{{ producto.foto.url }}" class="card-img-top" style="height:200px; object-fit:cover;">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <p class="card-text">
+                        Marca: {{ producto.marca }}<br>
+                        Modelo: {{ producto.modelo }}<br>
+                        Precio: €{{ producto.precio }}<br>
+                        Stock: {{ producto.unidades }}<br>
+                        {% if producto.vip %}<span class="badge bg-warning">VIP</span>{% endif %}
+                    </p>
+                    <a href="{% url 'producto_detalle' producto.pk %}" class="btn btn-primary btn-sm">Ver Detalle</a>
+                    <a href="{% url 'producto_editar' producto.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'producto_borrar' producto.pk %}" class="btn btn-danger btn-sm">Borrar</a>
+                </div>
+            </div>
+        </div>
         {% empty %}
-        <p>No hay productos</p>
+        <p>No hay productos.</p>
         {% endfor %}
-    </ul>
+    </div>
+</div>
 {% endblock %}
