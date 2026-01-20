@@ -106,8 +106,6 @@ class Checkout(LoginRequiredMixin,View):
 
         return redirect('compra_listado')
 
-
-        return redirect('compra_listado')
         
 @staff_member_required
 def informes(request):

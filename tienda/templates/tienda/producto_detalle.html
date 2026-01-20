@@ -4,7 +4,13 @@
     {{object.nombre}}
 
     <p>Detalles</p>
-    <img src="{{object.foto.url}}" alt="" width="300px">
+
+    {% if object.foto %}
+        <img src="{{ object.foto.url }}" alt="{{ object.nombre }}" width="300px">
+    {% else %}
+        <p>Este producto no tiene imagen</p>
+    {% endif %}
+
     
     <p>-----------------------------------------------</p>
     Marca: {{object.marca}}<br>

@@ -4,7 +4,7 @@
     <ul>
         {% for producto in object_list %}
             <li>
-                <a href=  "{% url 'producto_detalle' producto.pk %}" >{{producto.nombre}}</a>
+                <a href=  "{% url 'producto_detalle' producto.pk %}" >{{producto}}</a>
 
             </li>
         {% empty %}

@@ -24,6 +24,7 @@ class Marca(models.Model):
     class Meta:
         verbose_name = "Marca"
         verbose_name_plural = "Marcas" 
+
 class Producto(models.Model):
     nombre = models.CharField(max_length=50)
     marca = models.ForeignKey("Marca", on_delete=models.CASCADE)
@@ -34,7 +35,7 @@ class Producto(models.Model):
     foto = models.ImageField(upload_to='productos/', null=True, blank=True)
 
     def __str__(self):
-        return f'{self.nombre}'
+        return f"{self.nombre} | {self.marca} {self.modelo} | €{self.precio}"
     
     class Meta:
         verbose_name = "Producto"
